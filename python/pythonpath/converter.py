@@ -58,7 +58,6 @@ class DataConverter():
 
     def group_elements(self):
         """Distribute elements into groups."""
-        """Распределяет элементы по группам."""
         for index, item in enumerate(self.data.list_of_components):
             this_item = item
             next_item = self.data.list_of_components[(index + 1) % len(self.data.list_of_components)]
@@ -77,7 +76,7 @@ class DataConverter():
             this_item = item
             next_item = self.data.list_of_components[(index + 1) % len(self.data.list_of_components)]
             if next_item and not this_item:
-                name_of_component = next_item.split()[0] + "ы"
+                name_of_component = next_item.split()[0] + "Г»"
                 self.data.list_of_components[index] = name_of_component
 
     def convert_data_for_specification(self):
@@ -89,7 +88,7 @@ class DataConverter():
         for repeat in range(2):
             for _list in [self.data.list_of_components, self.data.quantity, self.data.designator]:
                 _list.insert(0, "")
-        self.data.list_of_components[0] = "Прочие изделия"
+        self.data.list_of_components[0] = "ГЏГ°Г®Г·ГЁГҐ ГЁГ§Г¤ГҐГ«ГЁГї"
 
     def convert_data_for_list_of_elements(self):
         """Convert imported data from BOM-file to form list of elements."""

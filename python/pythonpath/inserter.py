@@ -30,8 +30,6 @@ class DataInserter():
 
     def insert_data_into_document(self):
         """Insert converted data into document tables."""
-        for index, (component, quantity, designator) in enumerate(zip(self.list_of_components, self.quantity,
-                                                                      self.designator)):
-            self.insert_text_into_cell(self.colons["list_of_components"] + str(index + self.first_row_index), component)
-            self.insert_text_into_cell(self.colons["quantity"] + str(index + self.first_row_index), quantity)
-            self.insert_text_into_cell(self.colons["designator"] + str(index + self.first_row_index), designator)
+        for index, elements_lists in enumerate(zip(self.list_of_components, self.designator, self.quantity)):
+            for value, item in zip(self.colons.values(), elements_lists):
+                self.insert_text_into_cell(''.join([value, str(index + self.first_row_index)]), item)

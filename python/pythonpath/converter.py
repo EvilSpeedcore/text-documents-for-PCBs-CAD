@@ -24,7 +24,7 @@ class DataConverter():
                     self.data.quantity[next_index] = ""
                     if this_item:
                         number_of_elements += 1
-                        self.data.designator[this_index] += ", " + self.data.designator[next_index]
+                        self.data.designator[this_index] += ', ' + self.data.designator[next_index]
                         self.data.designator[next_index] = ""
                         self.data.quantity[this_index] = number_of_elements
 
@@ -48,7 +48,7 @@ class DataConverter():
             if self.data.quantity[this_index] and int(self.data.quantity[this_index]) > 2:
                 first_designator = self.data.designator[this_index][:2]
                 last_designator = self.data.designator[this_index][-2:]
-                self.data.designator[this_index] = first_designator + "..." + last_designator
+                self.data.designator[this_index] = '...'.join([first_designator, last_designator])
 
     def remove_empty_elements(self):
         """Delete empty elements from lists with data."""
@@ -64,11 +64,10 @@ class DataConverter():
             if this_item and next_item and self.data.list_of_components.index(next_item) != 0:
                 if this_item.split()[0] != next_item.split()[0]:
                     for _list in [self.data.list_of_components, self.data.quantity, self.data.designator]:
-                        for repeat in range(2):
-                            _list.insert(index + 1, "")
+                        _list.insert(index + 1, "")
+                        _list.insert(index + 1, "")
         for _list in [self.data.list_of_components, self.data.designator, self.data.quantity]:
-            for repeat in range(1):
-                _list.insert(0, "")
+            _list.insert(0, "")
 
     def name_groups_of_elements(self):
         """Name groups of elements."""
@@ -76,7 +75,7 @@ class DataConverter():
             this_item = item
             next_item = self.data.list_of_components[(index + 1) % len(self.data.list_of_components)]
             if next_item and not this_item:
-                name_of_component = next_item.split()[0] + "û"
+                name_of_component = ''.join([next_item.split()[0], 'ы'])
                 self.data.list_of_components[index] = name_of_component
 
     def convert_data_for_specification(self):
@@ -85,10 +84,10 @@ class DataConverter():
         self.remove_empty_elements()
         self.group_elements()
         self.name_groups_of_elements()
-        for repeat in range(2):
-            for _list in [self.data.list_of_components, self.data.quantity, self.data.designator]:
-                _list.insert(0, "")
-        self.data.list_of_components[0] = "Ïðî÷èå èçäåëèÿ"
+        for _list in [self.data.list_of_components, self.data.quantity, self.data.designator]:
+            _list.insert(0, "")
+            _list.insert(0, "")
+        self.data.list_of_components[0] = "Прочие изделия"
 
     def convert_data_for_list_of_elements(self):
         """Convert imported data from BOM-file to form list of elements."""
